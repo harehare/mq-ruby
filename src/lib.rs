@@ -54,12 +54,22 @@ fn run(code: String, content: String, options_hash: Option<RHash>) -> Result<MQR
         InputFormat::Raw => Ok(mq_lang::raw_input(&content)),
         InputFormat::Null => Ok(mq_lang::null_input()),
     }
-    .map_err(|e| Error::new(ruby.exception_runtime_error(), format!("Error parsing input: {}", e)))?;
+    .map_err(|e| {
+        Error::new(
+            ruby.exception_runtime_error(),
+            format!("Error parsing input: {}", e),
+        )
+    })?;
 
     engine
         .eval(&code, input.into_iter())
         .map(|values| MQResult::from(values.into_iter().map(Into::into).collect::<Vec<_>>()))
-        .map_err(|e| Error::new(ruby.exception_runtime_error(), format!("Error evaluating query: {}", e)))
+        .map_err(|e| {
+            Error::new(
+                ruby.exception_runtime_error(),
+                format!("Error evaluating query: {}", e),
+            )
+        })
 }
 
 /// Convert HTML to Markdown

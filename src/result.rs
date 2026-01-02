@@ -26,7 +26,13 @@ impl MQResult {
     pub fn text(&self) -> String {
         self.values
             .iter()
-            .filter_map(|value| if value.is_empty() { None } else { Some(value.text()) })
+            .filter_map(|value| {
+                if value.is_empty() {
+                    None
+                } else {
+                    Some(value.text())
+                }
+            })
             .collect::<Vec<String>>()
             .join("\n")
     }
@@ -35,7 +41,13 @@ impl MQResult {
     pub fn values_as_strings(&self) -> Vec<String> {
         self.values
             .iter()
-            .filter_map(|value| if value.is_empty() { None } else { Some(value.text()) })
+            .filter_map(|value| {
+                if value.is_empty() {
+                    None
+                } else {
+                    Some(value.text())
+                }
+            })
             .collect()
     }
 
@@ -57,7 +69,11 @@ impl MQResult {
             let ruby = Ruby::get().unwrap();
             Err(Error::new(
                 ruby.exception_runtime_error(),
-                format!("Index {} out of range for MQResult with length {}", idx, self.len()),
+                format!(
+                    "Index {} out of range for MQResult with length {}",
+                    idx,
+                    self.len()
+                ),
             ))
         }
     }

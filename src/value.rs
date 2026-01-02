@@ -59,7 +59,11 @@ impl fmt::Display for MQValue {
             MQValue::Array { value } => write!(
                 f,
                 "{}",
-                value.iter().map(|val| val.text()).collect::<Vec<String>>().join("\n")
+                value
+                    .iter()
+                    .map(|val| val.text())
+                    .collect::<Vec<String>>()
+                    .join("\n")
             ),
             MQValue::Dict { value } => write!(
                 f,
@@ -96,19 +100,33 @@ impl From<mq_lang::RuntimeValue> for MQValue {
                 value: arr.into_iter().map(|v| v.into()).collect(),
             },
             mq_lang::RuntimeValue::Dict(map) => MQValue::Dict {
-                value: map.into_iter().map(|(k, v)| (k.as_str(), v.into())).collect(),
+                value: map
+                    .into_iter()
+                    .map(|(k, v)| (k.as_str(), v.into()))
+                    .collect(),
             },
             mq_lang::RuntimeValue::Markdown(node, _) => MQValue::Markdown {
                 value: node.to_string(),
             },
             mq_lang::RuntimeValue::String(s) => MQValue::Markdown { value: s },
             mq_lang::RuntimeValue::Symbol(i) => MQValue::Markdown { value: i.as_str() },
-            mq_lang::RuntimeValue::Number(n) => MQValue::Markdown { value: n.to_string() },
-            mq_lang::RuntimeValue::Boolean(b) => MQValue::Markdown { value: b.to_string() },
+            mq_lang::RuntimeValue::Number(n) => MQValue::Markdown {
+                value: n.to_string(),
+            },
+            mq_lang::RuntimeValue::Boolean(b) => MQValue::Markdown {
+                value: b.to_string(),
+            },
             mq_lang::RuntimeValue::Function(..)
             | mq_lang::RuntimeValue::NativeFunction(..)
-            | mq_lang::RuntimeValue::Module(..) => MQValue::Markdown { value: "".to_string() },
-            mq_lang::RuntimeValue::None => MQValue::Markdown { value: "".to_string() },
+            | mq_lang::RuntimeValue::Module(..) => MQValue::Markdown {
+                value: "".to_string(),
+            },
+            mq_lang::RuntimeValue::Ast(_) => MQValue::Markdown {
+                value: "".to_string(),
+            },
+            mq_lang::RuntimeValue::None => MQValue::Markdown {
+                value: "".to_string(),
+            },
         }
     }
 }
