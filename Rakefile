@@ -18,6 +18,8 @@ task :compile do
   lib_dir = File.join(__dir__, "lib", "mq")
   FileUtils.mkdir_p(lib_dir)
 
+  sh "cargo build --manifest-path #{manifest_path} --release"
+
   # Find the built library
   target_dir = File.join(__dir__, "target", profile)
   ext_name = RbConfig::CONFIG["DLEXT"]
