@@ -20,10 +20,16 @@ fn main() {
     // Remove 'lib' prefix and '.dylib'/'.so' suffix to get the library name
     let lib_name = libruby
         .strip_prefix("lib")
-        .unwrap_or(&libruby)
-        .strip_suffix(".dylib")
-        .or_else(|| libruby.strip_suffix(".so"))
         .unwrap_or(&libruby);
+
+    // Remove .dylib, .so, or .so.* (versioned shared library)
+    let lib_name = if let Some(pos) = lib_name.find(".dylib") {
+        &lib_name[..pos]
+    } else if let Some(pos) = lib_name.find(".so") {
+        &lib_name[..pos]
+    } else {
+        lib_name
+    };
 
     // Output linker directives
     println!("cargo:rustc-link-search=native={}", libdir);
