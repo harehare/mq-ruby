@@ -18,9 +18,7 @@ fn main() {
     let libruby = String::from_utf8(libruby).unwrap().trim().to_string();
 
     // Remove 'lib' prefix and '.dylib'/'.so' suffix to get the library name
-    let lib_name = libruby
-        .strip_prefix("lib")
-        .unwrap_or(&libruby);
+    let lib_name = libruby.strip_prefix("lib").unwrap_or(&libruby);
 
     // Remove .dylib, .so, or .so.* (versioned shared library)
     let lib_name = if let Some(pos) = lib_name.find(".dylib") {
