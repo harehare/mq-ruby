@@ -3,7 +3,7 @@
 require_relative "lib/mq/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "mq"
+  spec.name = "mq-ruby"
   spec.version = MQ::VERSION
   spec.authors = ["Takahiro Sato"]
   spec.email = ["harehare1110@gmail.com"]

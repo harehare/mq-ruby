@@ -48,10 +48,10 @@ task clobber: :clean
 
 desc "Build the gem"
 task build: :compile do
-  sh "gem build mq.gemspec"
+  sh "gem build mq-ruby.gemspec"
 end
 
 desc "Install the gem locally"
 task install: :build do
-  sh "gem install mq-0.5.6.gem"
+  sh "gem install mq-ruby-0.5.9.gem"
 end

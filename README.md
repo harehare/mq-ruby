@@ -9,7 +9,7 @@ Ruby bindings for [mq](https://mqlang.org/), a jq-like command-line tool for pro
 Once complete, the Ruby API will look like this:
 
 ```ruby
-require 'mq-ruby'
+require 'mq'
 
 # Basic usage
 markdown = <<~MD
