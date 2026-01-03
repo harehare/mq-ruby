@@ -1,10 +1,6 @@
 use magnus::{Error, Module, RModule, Ruby};
 use std::{collections::HashMap, fmt};
 
-// ============================================================================
-// InputFormat enum
-// ============================================================================
-
 #[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum InputFormat {
     #[default]
@@ -41,10 +37,6 @@ impl InputFormat {
         }
     }
 }
-
-// ============================================================================
-// MQValue - internal representation
-// ============================================================================
 
 #[derive(Debug, Clone)]
 pub enum MQValue {
