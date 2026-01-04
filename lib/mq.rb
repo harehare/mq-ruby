@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "mq/version"
-
 begin
   # Try to load the compiled extension
   RUBY_VERSION =~ /(\d+\.\d+)/
