@@ -152,46 +152,16 @@ RSpec.describe MQ do
     end
   end
 
-  describe "ListStyle constants" do
-    it "defines all list style constants" do
-      expect(MQ::ListStyle::DASH).to eq(0)
-      expect(MQ::ListStyle::PLUS).to eq(1)
-      expect(MQ::ListStyle::STAR).to eq(2)
-    end
-  end
-
-  describe "TitleSurroundStyle constants" do
-    it "defines all title surround style constants" do
-      expect(MQ::TitleSurroundStyle::DOUBLE).to eq(0)
-      expect(MQ::TitleSurroundStyle::SINGLE).to eq(1)
-      expect(MQ::TitleSurroundStyle::PAREN).to eq(2)
-    end
-  end
-
-  describe "UrlSurroundStyle constants" do
-    it "defines all URL surround style constants" do
-      expect(MQ::UrlSurroundStyle::ANGLE).to eq(0)
-      expect(MQ::UrlSurroundStyle::NONE).to eq(1)
-    end
-  end
-
   describe MQ::Options do
     it "can be instantiated with default values" do
       options = MQ::Options.new
       expect(options.input_format).to be_nil
-      expect(options.list_style).to be_nil
     end
 
     it "allows setting input format" do
       options = MQ::Options.new
       options.input_format = MQ::InputFormat::TEXT
       expect(options.input_format).to eq(MQ::InputFormat::TEXT)
-    end
-
-    it "allows setting list style" do
-      options = MQ::Options.new
-      options.list_style = MQ::ListStyle::PLUS
-      expect(options.list_style).to eq(MQ::ListStyle::PLUS)
     end
   end
 

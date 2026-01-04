@@ -15,21 +15,15 @@ module MQ
 
   # Options class for configuring mq queries
   class Options
-    attr_accessor :input_format, :list_style, :link_title_style, :link_url_style
+    attr_accessor :input_format
 
     def initialize
       @input_format = nil
-      @list_style = nil
-      @link_title_style = nil
-      @link_url_style = nil
     end
 
     def to_h
       {
         input_format: @input_format,
-        list_style: @list_style,
-        link_title_style: @link_title_style,
-        link_url_style: @link_url_style
       }.compact
     end
   end
@@ -51,26 +45,6 @@ module MQ
         use_title_as_h1: @use_title_as_h1
       }
     end
-  end
-
-  # List style constants
-  module ListStyle
-    DASH = 0
-    PLUS = 1
-    STAR = 2
-  end
-
-  # Title surround style constants
-  module TitleSurroundStyle
-    DOUBLE = 0
-    SINGLE = 1
-    PAREN = 2
-  end
-
-  # URL surround style constants
-  module UrlSurroundStyle
-    ANGLE = 0
-    NONE = 1
   end
 
   class << self
