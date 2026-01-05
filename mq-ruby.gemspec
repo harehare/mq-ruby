@@ -2,9 +2,8 @@
 
 Gem::Specification.new do |spec|
   spec.name = "mq-ruby"
-  spec.version = "0.1.0"
+  spec.version = "0.1.1"
   spec.authors = ["Takahiro Sato"]
-  spec.email = ["harehare1110@gmail.com"]
 
   spec.summary = "Ruby bindings for mq Markdown processing"
   spec.description = "mq is a jq-like command-line tool for Markdown processing. This gem provides Ruby bindings for mq."
@@ -13,8 +12,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 3.0.0"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/harehare/mq"
-  spec.metadata["changelog_uri"] = "https://github.com/harehare/mq/blob/main/crates/mq-ruby/CHANGELOG.md"
+  spec.metadata["source_code_uri"] = "https://github.com/harehare/mq-ruby"
   spec.extensions = ["extconf.rb"]
 
   spec.files = Dir[
