@@ -1,5 +1,6 @@
-# mq-ruby
+<h1 align="center">mq-ruby</h1>
 
+[![Gem Version](https://badge.fury.io/rb/mq-ruby.svg)](https://badge.fury.io/rb/mq-ruby)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Ruby bindings for [mq](https://mqlang.org/), a jq-like command-line tool for processing Markdown.
