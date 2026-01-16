@@ -18,6 +18,6 @@ name = "mq_ruby"
 
 [dependencies]
 magnus = {version = "0.8"}
-mq-lang = "0.5.10"
-mq-markdown = "0.5.10"
+mq-lang = "0.5.11"
+mq-markdown = "0.5.11"
 
