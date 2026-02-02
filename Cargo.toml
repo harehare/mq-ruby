@@ -10,7 +10,7 @@ name = "mq-ruby"
 publish = false
 readme = "README.md"
 repository = "https://github.com/harehare/mq"
-version = "0.1.4"
+version = "0.1.5"
 
 [lib]
 crate-type = ["cdylib"]
@@ -18,6 +18,6 @@ name = "mq_ruby"
 
 [dependencies]
 magnus = {version = "0.8"}
-mq-lang = "0.5.12"
-mq-markdown = "0.5.12"
+mq-lang = "0.5.13"
+mq-markdown = "0.5.13"
 
