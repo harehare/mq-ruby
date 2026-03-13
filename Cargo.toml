@@ -1,3 +1,6 @@
+[workspace]
+members = [".", "crates/*"]
+
 [package]
 authors = ["Takahiro Sato <harehare1110@gmail.com>"]
 categories = ["command-line-utilities", "text-processing"]
