@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mq-ruby (0.1.13)
+    mq-ruby (0.1.14)
 
 GEM
   remote: https://rubygems.org/
