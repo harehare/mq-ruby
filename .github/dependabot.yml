@@ -5,6 +5,9 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 5
+      semver-major-days: 7
     open-pull-requests-limit: 5
 
   # Rust dependencies (Cargo)
@@ -12,4 +15,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 5
+      semver-major-days: 7
     open-pull-requests-limit: 5
+
