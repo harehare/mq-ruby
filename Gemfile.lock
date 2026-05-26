@@ -33,7 +33,7 @@ PLATFORMS
 
 DEPENDENCIES
   mq-ruby!
-  rake (~> 13.4, ~> 13.0)
+  rake (~> 13.4)
   rake-compiler (~> 1.2)
   rb_sys (~> 0.9)
   rspec (~> 3.0)
