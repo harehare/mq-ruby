@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest]
-        ruby: ['3.3', '3.4']
+        ruby: ['3.3', '3.4', '4.0']
         include:
           - os: ubuntu-latest
             ruby: head
@@ -34,14 +34,7 @@ jobs:
         uses: ruby/setup-ruby@3ff19f5e2baf30647122352b96108b1fbe250c64 # v1.299.0
         with:
           ruby-version: ${{ matrix.ruby }}
-          bundler-cache: false
-      - name: Update RubyGems for Ruby HEAD compatibility
-        if: matrix.ruby == 'head'
-        run: |
-          gem update --system --no-document
-          gem install bundler --no-document
-      - name: Bundle install
-        run: bundle install --jobs 4 --retry 3
+          bundler-cache: true
       - name: Install system dependencies (Ubuntu)
         if: runner.os == 'Linux'
         run: |
