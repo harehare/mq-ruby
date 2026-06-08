@@ -1,12 +1,6 @@
 # frozen_string_literal: true
 
-begin
-  # Try to load the compiled extension
-  RUBY_VERSION =~ /(\d+\.\d+)/
-  require_relative "mq/#{Regexp.last_match(1)}/mq_ruby"
-rescue LoadError
-  require_relative "mq/mq_ruby"
-end
+require_relative "mq/mq_ruby"
 
 require_relative "mq/query"
 
