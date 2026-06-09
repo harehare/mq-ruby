@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
-begin
-  # Try to load the compiled extension
-  RUBY_VERSION =~ /(\d+\.\d+)/
-  require_relative "mq/#{Regexp.last_match(1)}/mq_ruby"
-rescue LoadError
-  require_relative "mq/mq_ruby"
-end
+require_relative "mq/mq_ruby"
+
+require_relative "mq/query"
 
 module MQ
   class Error < StandardError; end
@@ -46,15 +42,17 @@ module MQ
   end
 
   class << self
-    # Run an mq query on the provided content
+    # Run an mq query on the provided content.
+    # Accepts either a query string or a {Query} object.
     #
-    # @param code [String] The mq query string
+    # @param code [String, Query] The mq query string or Query builder object
     # @param content [String] The markdown/HTML/text content to process
     # @param options [Options, nil] Optional configuration options
     # @return [Result] The query results
     def run(code, content, options = nil)
+      query = code.respond_to?(:to_query) ? code.to_query : code
       options_hash = options&.to_h
-      _run(code, content, options_hash)
+      _run(query, content, options_hash)
     end
 
     # Convert HTML to Markdown
