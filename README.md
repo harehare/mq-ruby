@@ -267,8 +267,6 @@ MQ::Query.list.map { contains("important") }
 .rtrim             # rtrim()
 .downcase          # downcase()
 .upcase            # upcase()
-.ascii_downcase    # ascii_downcase()
-.ascii_upcase      # ascii_upcase()
 .len               # len()
 .utf8bytelen       # utf8bytelen()
 .explode           # explode()          — string to codepoints
@@ -290,12 +288,12 @@ MQ::Query.list.map { contains("important") }
 #### Collection Operations
 
 ```ruby
-.length            # length
+.length            # len()
 .len               # len()
-.add               # add
+.add("x")          # add("x")
 .first             # first
 .last              # last
-.empty             # empty
+.empty             # is_empty()
 .reverse           # reverse
 .sort              # sort
 .compact           # compact           — remove nils
@@ -306,8 +304,8 @@ MQ::Query.list.map { contains("important") }
 .entries           # entries
 .children          # .children
 .join(", ")        # join(", ")
-.nth(2)            # nth(2)
-.limit(5)          # limit(5)
+.nth(2)            # get(2)
+.limit(5)          # take(5)
 .range(3)          # range(3)
 .del("key")        # del("key")
 .insert(0, "val")  # insert(0, "val")
