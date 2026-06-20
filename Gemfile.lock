@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     mq-ruby (0.1.24)
+      rb_sys (~> 0.9)
 
 GEM
   remote: https://rubygems.org/
