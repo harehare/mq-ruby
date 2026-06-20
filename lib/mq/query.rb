@@ -70,13 +70,17 @@ module MQ
     def to_bytes       = pipe_with("to_bytes()")
     def to_markdown_string = pipe_with("to_markdown_string()")
 
-    def length         = pipe_with("length")
+    def length         = pipe_with("len()")
     def len            = pipe_with("len()")
     def utf8bytelen    = pipe_with("utf8bytelen()")
-    def add            = pipe_with("add")
+
+    def add(other)
+      pipe_with("add(#{other.inspect})")
+    end
+
     def first          = pipe_with("first")
     def last           = pipe_with("last")
-    def empty          = pipe_with("empty")
+    def empty          = pipe_with("is_empty()")
     def reverse        = pipe_with("reverse")
     def sort           = pipe_with("sort")
     def compact        = pipe_with("compact")
@@ -96,11 +100,11 @@ module MQ
     end
 
     def nth(n)
-      pipe_with("nth(#{n})")
+      pipe_with("get(#{n})")
     end
 
     def limit(n)
-      pipe_with("limit(#{n})")
+      pipe_with("take(#{n})")
     end
 
     def range(n)
@@ -136,8 +140,6 @@ module MQ
     def rtrim          = pipe_with("rtrim()")
     def downcase       = pipe_with("downcase()")
     def upcase         = pipe_with("upcase()")
-    def ascii_downcase = pipe_with("ascii_downcase()")
-    def ascii_upcase   = pipe_with("ascii_upcase()")
     def explode        = pipe_with("explode()")
     def implode        = pipe_with("implode()")
     def url_encode     = pipe_with("url_encode()")
@@ -538,12 +540,11 @@ module MQ
     def type    = Filter.new("type")
 
     # String transforms usable in filter context
-    def length         = Filter.new("length")
-    def ascii_downcase = Filter.new("ascii_downcase()")
-    def ascii_upcase   = Filter.new("ascii_upcase()")
+    def length         = Filter.new("len()")
     def trim           = Filter.new("trim()")
-    def empty          = Filter.new("empty")
-    def add            = Filter.new("add")
+    def empty          = Filter.new("is_empty()")
+
+    def add(other) = Filter.new("add(#{other.inspect})")
 
     # Negate a filter expression with not().
     # Use +negate+ instead of +not+ since +not+ is a Ruby keyword.

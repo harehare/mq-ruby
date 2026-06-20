@@ -380,8 +380,6 @@ RSpec.describe MQ do
       it "chains rtrim"         do expect(MQ::Query.text.rtrim.to_query).to eq(".text | rtrim()") end
       it "chains downcase"      do expect(MQ::Query.text.downcase.to_query).to eq(".text | downcase()") end
       it "chains upcase"        do expect(MQ::Query.text.upcase.to_query).to eq(".text | upcase()") end
-      it "chains ascii_downcase" do expect(MQ::Query.text.ascii_downcase.to_query).to eq(".text | ascii_downcase()") end
-      it "chains ascii_upcase"  do expect(MQ::Query.text.ascii_upcase.to_query).to eq(".text | ascii_upcase()") end
       it "chains explode"       do expect(MQ::Query.text.explode.to_query).to eq(".text | explode()") end
       it "chains implode"       do expect(MQ::Query.text.implode.to_query).to eq(".text | implode()") end
       it "chains url_encode"    do expect(MQ::Query.text.url_encode.to_query).to eq(".text | url_encode()") end
@@ -427,11 +425,11 @@ RSpec.describe MQ do
     end
 
     describe "collection/array methods" do
-      it "chains length"   do expect(MQ::Query.list.length.to_query).to eq(".[] | length") end
-      it "chains add"      do expect(MQ::Query.list.add.to_query).to eq(".[] | add") end
+      it "chains length"   do expect(MQ::Query.list.length.to_query).to eq(".[] | len()") end
+      it "chains add"      do expect(MQ::Query.list.add("x").to_query).to eq('.[] | add("x")') end
       it "chains first"    do expect(MQ::Query.list.first.to_query).to eq(".[] | first") end
       it "chains last"     do expect(MQ::Query.list.last.to_query).to eq(".[] | last") end
-      it "chains empty"    do expect(MQ::Query.list.empty.to_query).to eq(".[] | empty") end
+      it "chains empty"    do expect(MQ::Query.list.empty.to_query).to eq(".[] | is_empty()") end
       it "chains reverse"  do expect(MQ::Query.list.reverse.to_query).to eq(".[] | reverse") end
       it "chains sort"     do expect(MQ::Query.list.sort.to_query).to eq(".[] | sort") end
       it "chains compact"  do expect(MQ::Query.list.compact.to_query).to eq(".[] | compact") end
@@ -442,8 +440,8 @@ RSpec.describe MQ do
       it "chains entries"  do expect(MQ::Query.list.entries.to_query).to eq(".[] | entries") end
       it "chains children" do expect(MQ::Query.list.children.to_query).to eq(".[] | .children") end
 
-      it "chains nth"   do expect(MQ::Query.h2.nth(2).to_query).to eq(".h2 | nth(2)") end
-      it "chains limit" do expect(MQ::Query.h2.limit(5).to_query).to eq(".h2 | limit(5)") end
+      it "chains nth"   do expect(MQ::Query.h2.nth(2).to_query).to eq(".h2 | get(2)") end
+      it "chains limit" do expect(MQ::Query.h2.limit(5).to_query).to eq(".h2 | take(5)") end
       it "chains range" do expect(MQ::Query.h2.range(3).to_query).to eq(".h2 | range(3)") end
 
       it "chains join" do
