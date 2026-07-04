@@ -254,6 +254,7 @@ MQ::Query.list.map { contains("important") }
 .to_html           # to_html()          — HTML string
 .to_string         # to_string()        — string coercion
 .to_number         # to_number()        — numeric coercion
+.to_boolean        # to_boolean()       — boolean coercion
 .to_array          # to_array()
 .to_bytes          # to_bytes()
 .to_markdown_string # to_markdown_string()
@@ -267,11 +268,14 @@ MQ::Query.list.map { contains("important") }
 .rtrim             # rtrim()
 .downcase          # downcase()
 .upcase            # upcase()
+.ascii_downcase    # ascii_downcase()
+.ascii_upcase      # ascii_upcase()
 .len               # len()
 .utf8bytelen       # utf8bytelen()
 .explode           # explode()          — string to codepoints
 .implode           # implode()          — codepoints to string
 .url_encode        # url_encode()
+.url_decode        # url_decode()
 .intern            # intern()
 
 .split(",")        # split(",")
@@ -279,6 +283,7 @@ MQ::Query.list.map { contains("important") }
 .replace("a", "b") # replace("a", "b") — literal replace
 .test("\\d+")      # test("\\d+")      — regex test → bool
 .capture("(\\w+)") # capture("(\\w+)") — regex capture
+.scan("(\\w+)")    # scan("(\\w+)")    — all regex matches
 .slice(0, 5)       # slice(0, 5)
 .index("sub")      # index("sub")      — position of substring
 .rindex("sub")     # rindex("sub")     — last position
@@ -309,6 +314,8 @@ MQ::Query.list.map { contains("important") }
 .range(3)          # range(3)
 .del("key")        # del("key")
 .insert(0, "val")  # insert(0, "val")
+.shuffle           # shuffle()         — random order
+.sample(3)         # sample(3)         — n random elements, no replacement
 ```
 
 #### Math Operations
@@ -350,7 +357,16 @@ MQ::Query.list.map { contains("important") }
 .sha512            # sha512()
 .from_hex          # from_hex()
 .to_hex            # to_hex()
+.uuid              # uuid()            — random (v4) UUID
+.uuid_v4           # uuid_v4()         — alias of uuid
+.uuid_v7           # uuid_v7()         — time-ordered (v7) UUID
+.rand              # rand()            — pseudo-random number in [0, 1)
+.rand_int(1, 10)   # rand_int(1, 10)   — pseudo-random integer in [min, max]
 ```
+
+`MQ::Query.uuid`, `.uuid_v4`, `.uuid_v7`, `.rand`, and `.rand_int(min, max)` are
+also available as class-level generators to start a query without a preceding
+selector, e.g. `MQ::Query.uuid.to_query # => "uuid()"`.
 
 #### Path Operations
 

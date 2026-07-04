@@ -370,6 +370,7 @@ RSpec.describe MQ do
       it "chains to_html"            do expect(MQ::Query.text.to_html.to_query).to eq(".text | to_html()") end
       it "chains to_string"          do expect(MQ::Query.text.to_string.to_query).to eq(".text | to_string()") end
       it "chains to_number"          do expect(MQ::Query.text.to_number.to_query).to eq(".text | to_number()") end
+      it "chains to_boolean"         do expect(MQ::Query.text.to_boolean.to_query).to eq(".text | to_boolean()") end
       it "chains to_array"           do expect(MQ::Query.text.to_array.to_query).to eq(".text | to_array()") end
       it "chains to_markdown_string" do expect(MQ::Query.text.to_markdown_string.to_query).to eq(".text | to_markdown_string()") end
     end
@@ -380,9 +381,12 @@ RSpec.describe MQ do
       it "chains rtrim"         do expect(MQ::Query.text.rtrim.to_query).to eq(".text | rtrim()") end
       it "chains downcase"      do expect(MQ::Query.text.downcase.to_query).to eq(".text | downcase()") end
       it "chains upcase"        do expect(MQ::Query.text.upcase.to_query).to eq(".text | upcase()") end
+      it "chains ascii_downcase" do expect(MQ::Query.text.ascii_downcase.to_query).to eq(".text | ascii_downcase()") end
+      it "chains ascii_upcase"  do expect(MQ::Query.text.ascii_upcase.to_query).to eq(".text | ascii_upcase()") end
       it "chains explode"       do expect(MQ::Query.text.explode.to_query).to eq(".text | explode()") end
       it "chains implode"       do expect(MQ::Query.text.implode.to_query).to eq(".text | implode()") end
       it "chains url_encode"    do expect(MQ::Query.text.url_encode.to_query).to eq(".text | url_encode()") end
+      it "chains url_decode"    do expect(MQ::Query.text.url_decode.to_query).to eq(".text | url_decode()") end
       it "chains intern"        do expect(MQ::Query.text.intern.to_query).to eq(".text | intern()") end
       it "chains len"           do expect(MQ::Query.text.len.to_query).to eq(".text | len()") end
       it "chains utf8bytelen"   do expect(MQ::Query.text.utf8bytelen.to_query).to eq(".text | utf8bytelen()") end
@@ -401,6 +405,10 @@ RSpec.describe MQ do
 
       it "chains capture with regex pattern" do
         expect(MQ::Query.text.capture("(\\w+)").to_query).to eq('.text | capture("(\\\\w+)")')
+      end
+
+      it "chains scan with regex pattern" do
+        expect(MQ::Query.text.scan("(\\w+)").to_query).to eq('.text | scan("(\\\\w+)")')
       end
 
       it "chains split" do
@@ -455,6 +463,12 @@ RSpec.describe MQ do
       it "chains insert" do
         expect(MQ::Query.list.insert(0, "new").to_query).to eq('.[] | insert(0, "new")')
       end
+
+      it "chains shuffle" do expect(MQ::Query.list.shuffle.to_query).to eq(".[] | shuffle()") end
+
+      it "chains sample" do
+        expect(MQ::Query.list.sample(3).to_query).to eq(".[] | sample(3)")
+      end
     end
 
     describe "math methods" do
@@ -502,6 +516,34 @@ RSpec.describe MQ do
       it "chains sha512"    do expect(MQ::Query.text.sha512.to_query).to eq(".text | sha512()") end
       it "chains from_hex"  do expect(MQ::Query.text.from_hex.to_query).to eq(".text | from_hex()") end
       it "chains to_hex"    do expect(MQ::Query.text.to_hex.to_query).to eq(".text | to_hex()") end
+      it "chains uuid"      do expect(MQ::Query.text.uuid.to_query).to eq(".text | uuid()") end
+      it "chains uuid_v4"   do expect(MQ::Query.text.uuid_v4.to_query).to eq(".text | uuid_v4()") end
+      it "chains uuid_v7"   do expect(MQ::Query.text.uuid_v7.to_query).to eq(".text | uuid_v7()") end
+      it "chains rand"      do expect(MQ::Query.text.rand.to_query).to eq(".text | rand()") end
+
+      it "chains rand_int" do
+        expect(MQ::Query.text.rand_int(1, 10).to_query).to eq(".text | rand_int(1, 10)")
+      end
+
+      it "builds uuid as a class-level generator" do
+        expect(MQ::Query.uuid.to_query).to eq("uuid()")
+      end
+
+      it "builds uuid_v4 as a class-level generator" do
+        expect(MQ::Query.uuid_v4.to_query).to eq("uuid_v4()")
+      end
+
+      it "builds uuid_v7 as a class-level generator" do
+        expect(MQ::Query.uuid_v7.to_query).to eq("uuid_v7()")
+      end
+
+      it "builds rand as a class-level generator" do
+        expect(MQ::Query.rand.to_query).to eq("rand()")
+      end
+
+      it "builds rand_int as a class-level generator" do
+        expect(MQ::Query.rand_int(1, 10).to_query).to eq("rand_int(1, 10)")
+      end
     end
 
     describe "path methods" do
