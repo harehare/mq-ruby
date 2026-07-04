@@ -66,6 +66,7 @@ module MQ
     def to_html        = pipe_with("to_html()")
     def to_string      = pipe_with("to_string()")
     def to_number      = pipe_with("to_number()")
+    def to_boolean     = pipe_with("to_boolean()")
     def to_array       = pipe_with("to_array()")
     def to_bytes       = pipe_with("to_bytes()")
     def to_markdown_string = pipe_with("to_markdown_string()")
@@ -135,14 +136,23 @@ module MQ
       pipe_with("repeat(#{n})")
     end
 
+    def shuffle        = pipe_with("shuffle()")
+
+    def sample(n)
+      pipe_with("sample(#{n})")
+    end
+
     def trim           = pipe_with("trim()")
     def ltrim          = pipe_with("ltrim()")
     def rtrim          = pipe_with("rtrim()")
     def downcase       = pipe_with("downcase()")
     def upcase         = pipe_with("upcase()")
+    def ascii_downcase = pipe_with("ascii_downcase()")
+    def ascii_upcase   = pipe_with("ascii_upcase()")
     def explode        = pipe_with("explode()")
     def implode        = pipe_with("implode()")
     def url_encode     = pipe_with("url_encode()")
+    def url_decode     = pipe_with("url_decode()")
     def intern         = pipe_with("intern()")
 
     def gsub(pattern, replacement)
@@ -159,6 +169,10 @@ module MQ
 
     def capture(pattern)
       pipe_with("capture(#{pattern.inspect})")
+    end
+
+    def scan(pattern)
+      pipe_with("scan(#{pattern.inspect})")
     end
 
     def abs            = pipe_with("abs()")
@@ -204,6 +218,15 @@ module MQ
     def from_hex       = pipe_with("from_hex()")
     def to_hex         = pipe_with("to_hex()")
     def to_hex_str     = pipe_with("to_hex()")
+
+    def uuid           = pipe_with("uuid()")
+    def uuid_v4        = pipe_with("uuid_v4()")
+    def uuid_v7        = pipe_with("uuid_v7()")
+    def rand           = pipe_with("rand()")
+
+    def rand_int(min, max)
+      pipe_with("rand_int(#{min}, #{max})")
+    end
 
     def basename       = pipe_with("basename()")
     def dirname        = pipe_with("dirname()")
@@ -453,6 +476,16 @@ module MQ
 
       def to_text     = new("to_text()")
       def to_markdown = new("to_markdown()")
+
+      # --- Value generators (usable as query starting points) ---
+      def uuid        = new("uuid()")
+      def uuid_v4     = new("uuid_v4()")
+      def uuid_v7     = new("uuid_v7()")
+      def rand        = new("rand()")
+
+      def rand_int(min, max)
+        new("rand_int(#{min}, #{max})")
+      end
     end
 
     private
