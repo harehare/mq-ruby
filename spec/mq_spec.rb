@@ -388,6 +388,10 @@ RSpec.describe MQ do
       it "chains url_encode"    do expect(MQ::Query.text.url_encode.to_query).to eq(".text | url_encode()") end
       it "chains url_decode"    do expect(MQ::Query.text.url_decode.to_query).to eq(".text | url_decode()") end
       it "chains intern"        do expect(MQ::Query.text.intern.to_query).to eq(".text | intern()") end
+      it "chains html_escape"   do expect(MQ::Query.text.html_escape.to_query).to eq(".text | html_escape()") end
+      it "chains html_unescape" do expect(MQ::Query.text.html_unescape.to_query).to eq(".text | html_unescape()") end
+      it "chains sanitize_html" do expect(MQ::Query.text.sanitize_html.to_query).to eq(".text | sanitize_html()") end
+      it "chains strip_tags"    do expect(MQ::Query.text.strip_tags.to_query).to eq(".text | strip_tags()") end
       it "chains len"           do expect(MQ::Query.text.len.to_query).to eq(".text | len()") end
       it "chains utf8bytelen"   do expect(MQ::Query.text.utf8bytelen.to_query).to eq(".text | utf8bytelen()") end
 
@@ -429,6 +433,22 @@ RSpec.describe MQ do
 
       it "chains rindex" do
         expect(MQ::Query.text.rindex("foo").to_query).to eq('.text | rindex("foo")')
+      end
+
+      it "chains word_wrap" do
+        expect(MQ::Query.text.word_wrap(20).to_query).to eq(".text | word_wrap(20)")
+      end
+
+      it "chains truncate" do
+        expect(MQ::Query.text.truncate(10, "...").to_query).to eq('.text | truncate(10, "...")')
+      end
+
+      it "chains token_count without a model" do
+        expect(MQ::Query.text.token_count.to_query).to eq(".text | token_count()")
+      end
+
+      it "chains token_count with a model" do
+        expect(MQ::Query.text.token_count("gpt-4").to_query).to eq('.text | token_count("gpt-4")')
       end
     end
 
@@ -544,6 +564,10 @@ RSpec.describe MQ do
       it "builds rand_int as a class-level generator" do
         expect(MQ::Query.rand_int(1, 10).to_query).to eq("rand_int(1, 10)")
       end
+
+      it "builds random_string as a class-level generator" do
+        expect(MQ::Query.random_string(8, "abc").to_query).to eq('random_string(8, "abc")')
+      end
     end
 
     describe "path methods" do
@@ -554,6 +578,24 @@ RSpec.describe MQ do
 
       it "chains path_join" do
         expect(MQ::Query.text.path_join("file.md").to_query).to eq('.text | path_join("file.md")')
+      end
+
+      it "chains glob_match" do
+        expect(MQ::Query.text.glob_match("docs/readme.md").to_query).to eq('.text | glob_match("docs/readme.md")')
+      end
+    end
+
+    describe "css selector methods" do
+      it "chains css" do
+        expect(MQ::Query.text.css("p.intro").to_query).to eq('.text | css("p.intro")')
+      end
+
+      it "chains css_text" do
+        expect(MQ::Query.text.css_text("p.intro").to_query).to eq('.text | css_text("p.intro")')
+      end
+
+      it "chains css_attr" do
+        expect(MQ::Query.text.css_attr("a", "href").to_query).to eq('.text | css_attr("a", "href")')
       end
     end
 
@@ -568,6 +610,18 @@ RSpec.describe MQ do
 
       it "chains property" do
         expect(MQ::Query.text.property("title").to_query).to eq('.text | ."title"')
+      end
+
+      it "chains get_path" do
+        expect(MQ::Query.text.get_path(%w[a b]).to_query).to eq('.text | get_path(["a", "b"])')
+      end
+
+      it "chains set_path" do
+        expect(MQ::Query.text.set_path(%w[a b], 1).to_query).to eq('.text | set_path(["a", "b"], 1)')
+      end
+
+      it "chains paths" do
+        expect(MQ::Query.text.paths.to_query).to eq(".text | paths()")
       end
     end
 

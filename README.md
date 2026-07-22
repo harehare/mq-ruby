@@ -277,6 +277,10 @@ MQ::Query.list.map { contains("important") }
 .url_encode        # url_encode()
 .url_decode        # url_decode()
 .intern            # intern()
+.html_escape       # html_escape()
+.html_unescape     # html_unescape()
+.sanitize_html     # sanitize_html()   — strip dangerous tags/attrs
+.strip_tags        # strip_tags()      — remove all HTML tags
 
 .split(",")        # split(",")
 .gsub("pat", "r")  # gsub("pat", "r")  — regex replace all
@@ -288,6 +292,10 @@ MQ::Query.list.map { contains("important") }
 .index("sub")      # index("sub")      — position of substring
 .rindex("sub")     # rindex("sub")     — last position
 .repeat(3)         # repeat(3)
+.word_wrap(20)     # word_wrap(20)     — wrap text to column width
+.truncate(10, "…") # truncate(10, "…") — shorten with an ellipsis
+.token_count       # token_count()     — estimate LLM token count
+.token_count("gpt-4") # token_count("gpt-4")
 ```
 
 #### Collection Operations
@@ -364,9 +372,10 @@ MQ::Query.list.map { contains("important") }
 .rand_int(1, 10)   # rand_int(1, 10)   — pseudo-random integer in [min, max]
 ```
 
-`MQ::Query.uuid`, `.uuid_v4`, `.uuid_v7`, `.rand`, and `.rand_int(min, max)` are
-also available as class-level generators to start a query without a preceding
-selector, e.g. `MQ::Query.uuid.to_query # => "uuid()"`.
+`MQ::Query.uuid`, `.uuid_v4`, `.uuid_v7`, `.rand`, `.rand_int(min, max)`, and
+`.random_string(len, charset)` are also available as class-level generators to
+start a query without a preceding selector, e.g. `MQ::Query.uuid.to_query # =>
+"uuid()"`.
 
 #### Path Operations
 
@@ -376,14 +385,30 @@ selector, e.g. `MQ::Query.uuid.to_query # => "uuid()"`.
 .extname           # extname()
 .stem              # stem()
 .path_join("sub")  # path_join("sub")
+.glob_match("docs/readme.md") # glob_match("docs/readme.md") — self is the glob pattern
+```
+
+#### HTML / CSS Selector Operations
+
+Query a raw HTML string directly with a CSS selector, bypassing Markdown
+conversion — useful for tags/classes/ids/`data-*` attributes that would
+otherwise be lost.
+
+```ruby
+.css("p.intro")        # css("p.intro")        — outer HTML of matches
+.css_text("p.intro")   # css_text("p.intro")   — text content of matches
+.css_attr("a", "href") # css_attr("a", "href") — attribute value of matches
 ```
 
 #### Dict Operations
 
 ```ruby
-.get("key")            # get("key")
-.set("key", "val")     # set("key", "val")
-.property("key")       # ."key"
+.get("key")                     # get("key")
+.set("key", "val")              # set("key", "val")
+.property("key")                # ."key"
+.get_path(["a", "b"])           # get_path(["a", "b"])
+.set_path(["a", "b"], "val")    # set_path(["a", "b"], "val")
+.paths                          # paths()           — array of leaf-path arrays
 ```
 
 #### Markdown Attribute Operations
