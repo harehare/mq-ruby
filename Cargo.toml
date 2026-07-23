@@ -10,7 +10,7 @@ name = "mq-ruby"
 publish = false
 readme = "README.md"
 repository = "https://github.com/harehare/mq"
-version = "0.1.29"
+version = "0.1.30"
 
 [lib]
 crate-type = ["cdylib"]
