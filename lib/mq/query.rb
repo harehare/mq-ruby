@@ -154,6 +154,24 @@ module MQ
     def url_encode     = pipe_with("url_encode()")
     def url_decode     = pipe_with("url_decode()")
     def intern         = pipe_with("intern()")
+    def html_escape    = pipe_with("html_escape()")
+    def html_unescape  = pipe_with("html_unescape()")
+    def sanitize_html  = pipe_with("sanitize_html()")
+    def strip_tags     = pipe_with("strip_tags()")
+
+    def word_wrap(width)
+      pipe_with("word_wrap(#{width})")
+    end
+
+    def truncate(len, ellipsis)
+      pipe_with("truncate(#{len}, #{ellipsis.inspect})")
+    end
+
+    # Estimates (or, when mq was built with tiktoken support, exactly counts) the
+    # LLM tokens the current string would consume. +model+ is optional.
+    def token_count(model = nil)
+      model ? pipe_with("token_count(#{model.inspect})") : pipe_with("token_count()")
+    end
 
     def gsub(pattern, replacement)
       pipe_with("gsub(#{pattern.inspect}, #{replacement.inspect})")
@@ -237,12 +255,52 @@ module MQ
       pipe_with("path_join(#{other.inspect})")
     end
 
+    # Treats the current string as a glob pattern (e.g. "*.md", "docs/**/*.rs")
+    # and returns whether it matches +path+.
+    def glob_match(path)
+      pipe_with("glob_match(#{path.inspect})")
+    end
+
+    # Returns the outer HTML of every element in the current (raw) HTML string
+    # matching the CSS +selector+, as an array of strings.
+    def css(selector)
+      pipe_with("css(#{selector.inspect})")
+    end
+
+    # Returns the text content of every element in the current (raw) HTML
+    # string matching the CSS +selector+, as an array of strings.
+    def css_text(selector)
+      pipe_with("css_text(#{selector.inspect})")
+    end
+
+    # Returns the value of attribute +name+ for every element in the current
+    # (raw) HTML string matching the CSS +selector+, as an array.
+    def css_attr(selector, name)
+      pipe_with("css_attr(#{selector.inspect}, #{name.inspect})")
+    end
+
     def get(key)
       pipe_with("get(#{key.inspect})")
     end
 
     def set(key, val)
       pipe_with("set(#{key.inspect}, #{val.inspect})")
+    end
+
+    # Retrieves a nested value by following an array of keys/indices.
+    def get_path(path)
+      pipe_with("get_path(#{path.inspect})")
+    end
+
+    # Sets a nested value by following an array of keys/indices, creating
+    # missing intermediate dicts/arrays automatically.
+    def set_path(path, new_value)
+      pipe_with("set_path(#{path.inspect}, #{new_value.inspect})")
+    end
+
+    # Returns an array of leaf-path arrays for the current value.
+    def paths
+      pipe_with("paths()")
     end
 
     # Access a dict property by key (generates ."key" selector)
@@ -485,6 +543,12 @@ module MQ
 
       def rand_int(min, max)
         new("rand_int(#{min}, #{max})")
+      end
+
+      # Returns a random string of +len+ characters drawn (with replacement)
+      # from +charset+.
+      def random_string(len, charset)
+        new("random_string(#{len}, #{charset.inspect})")
       end
     end
 
