@@ -20,4 +20,8 @@ name = "mq_ruby"
 magnus = {version = "0.8"}
 mq-lang = {version = "0.7.0", features = ["css-selector"]}
 mq-markdown = "0.7.0"
+# Pinned below the rb-sys releases (0.9.120+) that added Ruby 4.x-specific
+# ABI handling, which is buggy on Ruby 4.0 under magnus 0.8.2 and breaks
+# TypedData class conversion (see MQ::Result CI failures on Ruby 4.0).
+rb-sys = "=0.9.117"
 

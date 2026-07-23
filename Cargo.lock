@@ -947,6 +947,7 @@ dependencies = [
  "magnus",
  "mq-lang",
  "mq-markdown",
+ "rb-sys",
 ]
 
 [[package]]
@@ -1161,9 +1162,9 @@ checksum = "63b8176103e19a2643978565ca18b50549f6101881c443590420e4dc998a3c69"
 
 [[package]]
 name = "rb-sys"
-version = "0.9.128"
+version = "0.9.117"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "45ca28513560e56cfb79a62b1fce363c73af170a182024ce880c77ee9429920a"
+checksum = "f900d1ce4629a2ebffaf5de74bd8f9c1188d4c5ed406df02f97e22f77a006f44"
 dependencies = [
  "rb-sys-build",
 ]
