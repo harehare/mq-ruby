@@ -84,6 +84,7 @@ fn html_to_markdown(content: String, options_hash: Option<RHash>) -> Result<Stri
             extract_scripts_as_code_blocks: extract_scripts,
             generate_front_matter: generate_front,
             use_title_as_h1: use_title,
+            base_url: None,
         }
     } else {
         mq_markdown::ConversionOptions::default()
