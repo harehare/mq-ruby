@@ -23,5 +23,5 @@ mq-markdown = "0.8.3"
 # Pinned below the rb-sys releases (0.9.120+) that added Ruby 4.x-specific
 # ABI handling, which is buggy on Ruby 4.0 under magnus 0.8.2 and breaks
 # TypedData class conversion (see MQ::Result CI failures on Ruby 4.0).
-rb-sys = "=0.9.117"
+rb-sys = "=0.9.128"
 
