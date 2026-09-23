@@ -110,16 +110,19 @@ impl From<mq_lang::RuntimeValue> for MQValue {
             mq_lang::RuntimeValue::Boolean(b) => MQValue::Markdown {
                 value: b.to_string(),
             },
-            mq_lang::RuntimeValue::Function(..)
-            | mq_lang::RuntimeValue::NativeFunction(..)
-            | mq_lang::RuntimeValue::Module(..) => MQValue::Markdown {
-                value: "".to_string(),
-            },
+            mq_lang::RuntimeValue::Closure(..) | mq_lang::RuntimeValue::NativeFunction(..) => {
+                MQValue::Markdown {
+                    value: "".to_string(),
+                }
+            }
             mq_lang::RuntimeValue::None => MQValue::Markdown {
                 value: "".to_string(),
             },
             mq_lang::RuntimeValue::Bytes(b) => MQValue::Markdown {
                 value: String::from_utf8_lossy(&b).to_string(),
+            },
+            _ => MQValue::Markdown {
+                value: "".to_string(),
             },
         }
     }
