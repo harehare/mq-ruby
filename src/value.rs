@@ -94,7 +94,7 @@ impl From<mq_lang::RuntimeValue> for MQValue {
             mq_lang::RuntimeValue::Dict(map) => MQValue::Dict {
                 value: map
                     .iter()
-                    .map(|(k, v)| (k.as_str(), v.clone().into()))
+                    .map(|(k, v)| (k.to_string(), v.clone().into()))
                     .collect(),
             },
             mq_lang::RuntimeValue::Markdown(node, _) => MQValue::Markdown {
@@ -103,7 +103,7 @@ impl From<mq_lang::RuntimeValue> for MQValue {
             mq_lang::RuntimeValue::String(s) => MQValue::Markdown {
                 value: s.to_string(),
             },
-            mq_lang::RuntimeValue::Symbol(i) => MQValue::Markdown { value: i.as_str() },
+            mq_lang::RuntimeValue::Symbol(i) => MQValue::Markdown { value: i.to_string() },
             mq_lang::RuntimeValue::Number(n) => MQValue::Markdown {
                 value: n.to_string(),
             },
