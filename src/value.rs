@@ -103,7 +103,9 @@ impl From<mq_lang::RuntimeValue> for MQValue {
             mq_lang::RuntimeValue::String(s) => MQValue::Markdown {
                 value: s.to_string(),
             },
-            mq_lang::RuntimeValue::Symbol(i) => MQValue::Markdown { value: i.to_string() },
+            mq_lang::RuntimeValue::Symbol(i) => MQValue::Markdown {
+                value: i.to_string(),
+            },
             mq_lang::RuntimeValue::Number(n) => MQValue::Markdown {
                 value: n.to_string(),
             },
