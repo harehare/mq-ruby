@@ -15,17 +15,17 @@ jobs:
       contents: write 
 
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@v6.0.2
         with:
           persist-credentials: false
       - name: Set up Ruby
         id: setup-ruby
-        uses: ruby/setup-ruby@3ff19f5e2baf30647122352b96108b1fbe250c64 # v1.299.0
+        uses: ruby/setup-ruby@v1.299.0
         with:
           ruby-version: '3.4'
           bundler-cache: true
 
-      - uses: rubygems/release-gem@052cc82692552de3ef2b81fd670e41d13cba8092 # v1.4.0
+      - uses: rubygems/release-gem@v1.4.0
 
       - name: Create GitHub Release
         env:
