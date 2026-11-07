@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name = "mq-ruby"
-  spec.version = "0.1.41"
+  spec.version = "0.1.42"
   spec.authors = ["Takahiro Sato"]
 
   spec.summary = "Ruby bindings for mq Markdown processing"
