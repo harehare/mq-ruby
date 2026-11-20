@@ -24,6 +24,7 @@ jobs:
         with:
           cache: false
           rustflags: ""
+          build-warnings: ""
       - name: Set up Ruby
         id: setup-ruby
         uses: ruby/setup-ruby@v1.299.0
@@ -53,6 +54,7 @@ jobs:
           components: clippy
           cache: false
           rustflags: ""
+          build-warnings: ""
       - name: Cache Rust dependencies
         uses: Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32 # v2
       - name: Install system dependencies
@@ -72,5 +74,6 @@ jobs:
           components: rustfmt
           cache: false
           rustflags: ""
+          build-warnings: ""
       - name: Check formatting
         run: cargo fmt -- --check
